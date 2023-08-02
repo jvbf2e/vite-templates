@@ -1,28 +1,22 @@
-import { loadEnv } from 'vite'
+import { resolve } from 'node:path'
 
-import { wrapperEnv } from '../utils'
+import type { ConfigEnv, UserConfig } from 'vite'
+
 import { createViteBuild } from './build'
 import { createViteCss } from './css'
+import { createViteEsbuild } from './esbuild'
 import { createVitePlugins } from './plugins'
 import { createViteResolve } from './resolve'
 import { createViteServer } from './server'
 
-import type { ConfigEnv, UserConfig } from 'vite'
-
-export function createVite({ mode }: ConfigEnv): UserConfig {
-  const env = loadEnv(mode, process.cwd())
-  const viteEnv = wrapperEnv(env)
-
-  const { VITE_PUBLIC_PATH } = viteEnv
-
+// https://vitejs.dev/config/
+export default ({ mode }: ConfigEnv): UserConfig => {
   return {
-    base: VITE_PUBLIC_PATH || '/',
+    root: resolve(__dirname, '../../'),
     build: createViteBuild(),
     css: createViteCss(),
-    define: {
-      'process.env': viteEnv,
-    },
-    plugins: createVitePlugins(),
+    esbuild: createViteEsbuild(),
+    plugins: createVitePlugins(mode),
     resolve: createViteResolve(),
     server: createViteServer(),
   }

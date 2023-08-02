@@ -1,0 +1,3 @@
+{
+  "extends": ["@jvbjs/stylelint-config", "@jvbjs/stylelint-config/scss"]
+}

@@ -1,19 +1,11 @@
-import path from 'path'
-
-import type { ObjAnyTypes } from '#/common'
+import { resolve } from 'node:path'
 
 export function createViteResolve() {
-  const resolve = {
-    alias: configAliasResolve(),
+  console.log()
+  return {
+    alias: {
+      '@': resolve(__dirname, '../..', 'src'),
+      '#': resolve(__dirname, '../..', 'src'),
+    },
   }
-  return resolve
-}
-
-function configAliasResolve() {
-  const alias = {
-    '@': path.resolve(__dirname, '../..', './src'),
-    '#': path.resolve(__dirname, '../..', './types'),
-  } as ObjAnyTypes
-
-  return alias
 }

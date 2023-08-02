@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# My
+types/auto-imports.ts
+types/components.d.ts
+.eslintrc-auto-import.json
+pnpm-lock.yaml

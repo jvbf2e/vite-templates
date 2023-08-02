@@ -1,4 +1,7 @@
 {
+  "vueCompilerOptions": {
+    "target": 3
+  },
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
@@ -13,16 +16,13 @@
     "esModuleInterop": true,
     "noEmit": true,
     "jsx": "preserve",
+    "typeRoots": ["node_modules/@types", "types", "src/vite-env.d.ts"],
 
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-
-    "typeRoots": ["node_modules/@types", "types", "src/vite-env.d.ts"],
-    "types": ["node", "unplugin-vue-define-options/macros-global"],
-
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],

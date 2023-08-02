@@ -1,1 +1,16 @@
 dist
+node_modules
+public
+.husky
+.vscode
+.idea
+
+src/assets
+
+.eslintrc.cjs
+.prettierrc.cjs
+.stylelintrc.cjs
+
+.eslintrc.json
+.prettierrc.json
+.stylelintrc.json

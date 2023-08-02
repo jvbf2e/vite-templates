@@ -1,31 +1,40 @@
-import { acceptHMRUpdate, defineStore } from 'pinia'
+import { defineStore } from 'pinia'
 
-interface loadingTypes {
-  visible: boolean
-  message?: string
-}
+import type { GlobalState } from './global.d'
 
 export const useGlobalStore = defineStore({
-  id: 'GlobalStore',
-  state: () => ({
-    loading: {
-      visible: false,
-      message: 'Loading...',
-    } as loadingTypes,
+  id: 'global',
+  state: (): GlobalState => ({
+    path: 'Index',
+    language: 'zh',
+    token: null,
+    settings: {
+      isLanguage: false,
+      isTheme: false,
+    },
+    themeConfig: {
+      mode: 'default',
+    },
+    config: {
+      request: {
+        pending: new Map(),
+        timeout: 0,
+      },
+    },
   }),
   getters: {
-    getLoadingMessage(state) {
-      return state.loading.message
-    },
+    // 获取请求配置
+    getConfigRequest: (state) => state.config.request,
+    // 获取请求
+    getConfigRequestPending: (state) => state.config.request.pending,
   },
   actions: {
-    setLoading(visible: boolean, message?: string) {
-      this.loading.visible = visible
-      message && (this.loading.message = message)
+    // 初始化
+    initConfig() {
+      process.env.VITE_REQUEST_TIMEOUT &&
+        (this.config.request.timeout = parseInt(
+          process.env.VITE_REQUEST_TIMEOUT
+        ))
     },
   },
 })
-
-if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useGlobalStore, import.meta.hot))
-}

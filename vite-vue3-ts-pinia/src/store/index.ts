@@ -2,6 +2,9 @@ import { createPinia } from 'pinia'
 
 import type { App } from 'vue'
 
+export * from './modules/global'
+export * from './modules/request'
+
 export const store = createPinia()
 
 export const setupStore = (app: App<Element>) => {

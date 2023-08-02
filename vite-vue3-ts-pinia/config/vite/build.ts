@@ -1,14 +1,5 @@
-import externalGlobals from 'rollup-plugin-external-globals'
-
 // https://vitejs.cn/config/#build-target
-import type { BuildOptions, Plugin } from 'vite'
-
-const globals = externalGlobals({
-  vue: 'Vue',
-  'vue-i18n': 'VueI18n',
-  'vue-router': 'VueRouter',
-  pinia: 'Pinia',
-}) as Plugin
+import type { BuildOptions } from 'vite'
 
 export function createViteBuild(): BuildOptions {
   return {
@@ -61,9 +52,6 @@ export function createViteBuild(): BuildOptions {
      * 自定义底层的 Rollup 打包配置。这与从 Rollup 配置文件导出的选项相同，并将与 Vite 的内部 Rollup 选项合并。
      */
     rollupOptions: {
-      // 确保外部化处理那些你不想打包进库的依赖
-      external: ['vue', 'vue-i18n', 'vue-router', 'pinia', 'axios'],
-      plugins: [globals],
       // 指定文件输出的配置
       output: {
         chunkFileNames: `static/js/[name]-[hash].js`,
@@ -73,6 +61,8 @@ export function createViteBuild(): BuildOptions {
           if (id.includes('node_modules')) {
             // 代码分割为第三方包
             return 'vendor'
+            // 最小化拆分包
+            // return id.toString().split('node_modules/')[1].split('/')[0].toString();
           }
         },
       },
