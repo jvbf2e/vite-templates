@@ -1,6 +1,5 @@
-import { createPinia } from 'pinia'
-
 import type { App } from 'vue'
+import { createPinia } from 'pinia'
 
 export * from './modules/global'
 export * from './modules/request'

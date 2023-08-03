@@ -24,7 +24,7 @@ dist-ssr
 *.sw?
 
 # My
-types/auto-imports.ts
+types/auto-imports.d.ts
 types/components.d.ts
 .eslintrc-auto-import.json
 pnpm-lock.yaml

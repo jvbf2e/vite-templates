@@ -1,7 +1,10 @@
 declare global {
   interface Window {
-    electronAPI?: any //全局变量名
+    electronAPI?: any // 全局变量名
   }
+
+  type AxiosMethod = 'POST' | 'GET' | 'HEAD' | 'DELETE' | 'PUT'
+
   interface AxiosConfig {
     url?: string
     params?: any
@@ -19,8 +22,6 @@ declare global {
     | 'application/json'
     | 'application/x-www-form-urlencoded'
     | 'multipart/form-data'
-
-  type AxiosMethod = 'POST' | 'GET' | 'HEAD' | 'DELETE' | 'PUT'
 }
 
 declare const window: any

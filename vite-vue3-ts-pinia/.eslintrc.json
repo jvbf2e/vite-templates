@@ -5,5 +5,11 @@
     "browser": true,
     "es6": true
   },
-  "extends": ["@jvbjs/eslint-config", "@jvbjs/eslint-config/vue"]
+  "extends": ["@jvbjs/eslint-config", "@jvbjs/eslint-config/vue"],
+  "rules": {
+    "no-unused-expressions": [
+      "error",
+      { "allowShortCircuit": true, "allowTernary": true, "enforceForJSX": true }
+    ]
+  }
 }

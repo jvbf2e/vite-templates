@@ -64,6 +64,7 @@ export function createViteBuild(): BuildOptions {
             // 最小化拆分包
             // return id.toString().split('node_modules/')[1].split('/')[0].toString();
           }
+          return ''
         },
       },
     },

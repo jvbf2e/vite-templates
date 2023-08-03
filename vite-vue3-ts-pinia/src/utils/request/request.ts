@@ -1,9 +1,11 @@
-import qs from 'qs'
-import { useRequestState } from '@/store'
-import { getRequestKey, cancelToken } from '.'
-
 import type { InternalAxiosRequestConfig } from 'axios'
 import type { CustomAxiosRequestConfig } from './index.d'
+
+import qs from 'qs'
+
+import { cancelToken, getRequestKey } from '.'
+
+import { useRequestState } from '@/store'
 
 const contentTypes = {
   json: 'application/json; charset=utf-8',
@@ -13,6 +15,8 @@ const contentTypes = {
 
 class RequestManager {
   private init(config: CustomAxiosRequestConfig) {
+    console.log(this)
+
     const { getConfig } = useRequestState()
 
     const newOptions = {
@@ -30,7 +34,7 @@ class RequestManager {
     if (config.method === 'get') {
       newOptions.params = config.data
     } else {
-      const data = newOptions.data
+      const { data } = newOptions
       if (data instanceof FormData) {
         newOptions.headers = {
           'x-requested-with': 'XMLHttpRequest',
@@ -58,6 +62,7 @@ class RequestManager {
 
   // 取消重复请求
   private cancelDuplicate(config: CustomAxiosRequestConfig) {
+    console.log(this)
     // 获取请求标识
     const key = getRequestKey(config)
     const { getPending, setPending } = useRequestState()
@@ -69,6 +74,7 @@ class RequestManager {
       setPending('delete', key)
     }
     // 缓存
+    // eslint-disable-next-line no-param-reassign
     config.cancelToken = cancelToken((cancel) => {
       setPending('set', key, cancel)
     })
@@ -76,6 +82,7 @@ class RequestManager {
 
   // Loading
   private loadingCount() {
+    console.log(this)
     const { getLoadingCount, setLoadingCount } = useRequestState()
     if (getLoadingCount === 0) {
       console.log('showLoading')
@@ -86,6 +93,7 @@ class RequestManager {
   // 定义一个请求拦截器的函数，用于在请求发送前执行一些操作
   public onFulfilled(config: CustomAxiosRequestConfig) {
     if (!config?.retryCount) {
+      // eslint-disable-next-line no-param-reassign
       config = this.init(config)
     }
 
@@ -104,6 +112,7 @@ class RequestManager {
 
   // 定义一个错误拦截器的函数，用于在错误发生时执行一些操作
   public onRejected(error: any) {
+    console.log(this)
     return Promise.reject(error)
   }
 }

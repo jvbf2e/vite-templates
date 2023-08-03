@@ -1,3 +1,7 @@
 {
-  "extends": ["@jvbjs/stylelint-config", "@jvbjs/stylelint-config/scss"]
+  "extends": [
+    "@jvbjs/stylelint-config",
+    "@jvbjs/stylelint-config/scss",
+    "stylelint-config-standard-vue"
+  ]
 }

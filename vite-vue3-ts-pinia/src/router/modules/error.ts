@@ -1,4 +1,4 @@
-import { type RouteRecordRaw } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
 
 // 错误页面模块
 const errorRouter: Array<RouteRecordRaw> = [

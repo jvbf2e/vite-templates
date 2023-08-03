@@ -1,11 +1,12 @@
-import axios from 'axios'
-import { useRequestState } from '@/store'
-
 import type { Canceler } from 'axios'
 import type { CustomAxiosRequestConfig } from './index.d'
 
+import axios from 'axios'
+
 import RequestManager from './request'
 import ResponseManager from './response'
+
+import { useRequestState } from '@/store'
 
 const requestState = useRequestState()
 
@@ -28,17 +29,10 @@ service.interceptors.response.use(
   responseManager.onRejected.bind(responseManager, service)
 )
 
-export const getRequestKey = (config: CustomAxiosRequestConfig) => {
-  return (
-    config.url +
-    '&' +
-    config.method +
-    '&' +
-    JSON.stringify(config.params) +
-    '&' +
-    JSON.stringify(config.data)
-  )
-}
+export const getRequestKey = (config: CustomAxiosRequestConfig) =>
+  `${config.url}&${config.method}&${JSON.stringify(
+    config.params
+  )}&${JSON.stringify(config.data)}`
 
 export const cancelToken = (executor: (cancel: Canceler) => void) =>
   new axios.CancelToken(executor)
@@ -47,28 +41,20 @@ export const post = <T = any, D = any>(
   url: string,
   data?: T,
   config?: CustomAxiosRequestConfig<T>
-): Promise<D> => {
-  return service.post(url, data, config)
-}
+): Promise<D> => service.post(url, data, config)
 
 export const del = <T = any, D = any>(
   url: string,
   config?: CustomAxiosRequestConfig<T>
-): Promise<D> => {
-  return service.delete(url, config)
-}
+): Promise<D> => service.delete(url, config)
 
 export const put = <T = any, D = any>(
   url: string,
   data?: T,
   config?: CustomAxiosRequestConfig<T>
-): Promise<D> => {
-  return service.put(url, data, config)
-}
+): Promise<D> => service.put(url, data, config)
 
 export const get = <T = any, D = any>(
   url: string,
   config?: CustomAxiosRequestConfig<T>
-): Promise<D> => {
-  return service.get(url, config)
-}
+): Promise<D> => service.get(url, config)

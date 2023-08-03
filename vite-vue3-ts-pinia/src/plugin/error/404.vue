@@ -1,18 +1,23 @@
 <template>
   <div class="not-container">
-    <img :src="ImageError404" class="not-img" alt="404" />
+    <img
+      :src="useAssetsFile('/image/error/404.png')"
+      class="not-img"
+      alt="404"
+    />
     <div class="not-detail">
       <h2>404</h2>
       <h4>抱歉，您访问的页面不存在~🤷‍♂️🤷‍♀️</h4>
-      <button type="primary" @click="WebData.handlePush">返回首页</button>
+      <button @click="WebData.handlePush">返回首页</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { GlobalStore } from '@/store'
+import { useAssetsFile } from '@/hooks'
+import { useGlobalStore } from '@/store'
 
-const globalStore = GlobalStore()
+const globalStore = useGlobalStore()
 const router = useRouter()
 
 const WebData = reactive({
@@ -23,5 +28,5 @@ const WebData = reactive({
 </script>
 
 <style scoped lang="scss">
-@import './index.scss';
+@import url('./index');
 </style>

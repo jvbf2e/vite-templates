@@ -5,4 +5,12 @@ public
 .vscode
 .idea
 
-src/asset
+src/assets
+
+.eslintrc.cjs
+.prettierrc.cjs
+.stylelintrc.cjs
+
+.eslintrc.json
+.prettierrc.json
+.stylelintrc.json

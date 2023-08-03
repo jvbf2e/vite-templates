@@ -1,18 +1,23 @@
 <template>
   <div class="not-container">
-    <img :src="ImageError500" class="not-img" alt="500" />
+    <img
+      :src="useAssetsFile('/iamge/error/500.svg')"
+      class="not-img"
+      alt="500"
+    />
     <div class="not-detail">
       <h2>500</h2>
       <h4>抱歉，您的网络不见了~🤦‍♂️🤦‍♀️</h4>
-      <button type="primary" @click="WebData.handlePush">返回首页</button>
+      <button @click="WebData.handlePush">返回首页</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { GlobalStore } from '@/store'
+import { useAssetsFile } from '@/hooks'
+import { useGlobalStore } from '@/store'
 
-const globalStore = GlobalStore()
+const globalStore = useGlobalStore()
 const router = useRouter()
 
 const WebData = reactive({
@@ -23,5 +28,5 @@ const WebData = reactive({
 </script>
 
 <style scoped lang="scss">
-@import './index.scss';
+@import url('./index');
 </style>

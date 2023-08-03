@@ -1,44 +1,67 @@
 module.exports = {
   // 可选类型
   types: [
-    { value: "feature✨", name: "feature: ✨ 新功能", emoji: "✨" },
-    { value: "bug🐞", name: "bug: 测试反馈bug列表中的bug号", emoji: "🐞" },
-    { value: "fix🐛", name: "fix: 🐛 修复", emoji: "🐛" },
-    { value: "ui💎", name: "ui: 💎 更新UI", emoji: "💎" },
-    { value: "docs📚", name: "docs: 📚 文档变更", emoji: "📚" },
     {
-      value: "style🎨",
-      name: "style: 🎨 代码格式(不影响代码运行的变动)",
-      emoji: "🎨",
+      value: ':sparkles: feat',
+      name: '✨ feat:     新功能',
     },
-    { value: "perf⚡️", name: "perf: ⚡️ 性能优化", emoji: "⚡️" },
     {
-      value: "refactor♻️",
-      name: "refactor: ♻️ 重构(既不是增加feature，也不是修复bug)",
-      emoji: "♻️",
+      value: ':bug: fix',
+      name: '🐛 fix:      修复bug',
     },
-    { value: "release🚀", name: "release: 🚀 发布版本", emoji: "🚀" },
-    { value: "deploy🔨", name: "deploy: 🔨 部署", emoji: "🔨" },
-    { value: "test🚨", name: "test: 🚨 增加测试", emoji: "🚨" },
     {
-      value: "chore🔧",
-      name: "chore: 🔧 构建过程或辅助工具的变动(更改配置文件)",
-      emoji: "🔧",
+      value: ':tada: init',
+      name: '🎉 init:     初始化',
     },
-    { value: "revert⏪️", name: "revert: ⏪️ 回退", emoji: "⏪️" },
-    { value: "build📦️", name: "build: 📦️ 打包", emoji: "📦️" },
+    {
+      value: ':pencil2: docs',
+      name: '✏️  docs:     文档变更',
+    },
+    {
+      value: ':lipstick: style',
+      name: '💄 style:    代码的样式美化',
+    },
+    {
+      value: ':recycle: refactor',
+      name: '♻️  refactor: 重构',
+    },
+    {
+      value: ':zap: perf',
+      name: '⚡️ perf:     性能优化',
+    },
+    {
+      value: ':white_check_mark: test',
+      name: '✅ test:     测试',
+    },
+    {
+      value: ':rewind: revert',
+      name: '⏪️ revert:   回退',
+    },
+    {
+      value: ':package: build',
+      name: '📦️ build:    打包',
+    },
+    {
+      value: ':rocket: chore',
+      name: '🚀 chore:    构建/工程依赖/工具',
+    },
+    {
+      value: ':construction_worker: ci',
+      name: '👷 ci:       CI related changes',
+    },
   ],
   // 消息步骤
   messages: {
-    type: "请选择提交类型:",
-    customScope: "请输入您修改的范围(可选):",
-    subject: "请简要描述提交 message (必填):",
-    body: "请输入详细描述(可选，待优化去除，跳过即可):",
-    footer: "请输入要关闭的issue(待优化去除，跳过即可):",
-    confirmCommit: "确认使用以上信息提交？(y/n/e/h)",
+    type: '请选择提交类型(必填)',
+    customScope: '请输入文件修改范围(可选)',
+    subject: '请简要描述提交(必填)',
+    body: '请输入详细描述(可选)',
+    breaking: '列出任何BREAKING CHANGES(可选)',
+    footer: '请输入要关闭的issue(可选)',
+    confirmCommit: '确定提交此说明吗？',
   },
-  skipQuestions: ["body", "footer"],
   allowCustomScopes: true,
+  allowBreakingChanges: [':sparkles: feat', ':bug: fix'],
   useEmoji: true,
   subjectLimit: 72,
-};
+}

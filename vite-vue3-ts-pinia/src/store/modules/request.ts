@@ -1,6 +1,6 @@
-import { defineStore } from 'pinia'
-
 import type { ContentType, RequestState } from './request.d'
+
+import { defineStore } from 'pinia'
 
 export const useRequestState = defineStore({
   id: 'request',
@@ -16,16 +16,14 @@ export const useRequestState = defineStore({
     retryDelay: 1000,
   }),
   getters: {
-    getConfig: (state) => {
-      return {
-        prefixUrl: state.prefixUrl,
-        contentType: state.contentType,
-        cancelDuplicate: state.cancelDuplicate,
-        showLoading: state.showLoading,
-        retry: state.retry,
-        retryDelay: state.retryDelay,
-      }
-    },
+    getConfig: (state) => ({
+      prefixUrl: state.prefixUrl,
+      contentType: state.contentType,
+      cancelDuplicate: state.cancelDuplicate,
+      showLoading: state.showLoading,
+      retry: state.retry,
+      retryDelay: state.retryDelay,
+    }),
     getPending: (state) => state.pending,
     getLoadingCount: (state) => state.loadingCount,
   },
@@ -33,11 +31,14 @@ export const useRequestState = defineStore({
     // 初始化
     init() {
       process.env.VITE_REQUEST_TIMEOUT &&
-        (this.timeout = parseInt(process.env.VITE_REQUEST_TIMEOUT))
+        (this.timeout = Number.parseInt(process.env.VITE_REQUEST_TIMEOUT, 10))
       process.env.VITE_REQUEST_RETRY &&
-        (this.retry = parseInt(process.env.VITE_REQUEST_RETRY))
+        (this.retry = Number.parseInt(process.env.VITE_REQUEST_RETRY, 10))
       process.env.VITE_REQUEST_RETRY_DELAY &&
-        (this.retryDelay = parseInt(process.env.VITE_REQUEST_RETRY_DELAY))
+        (this.retryDelay = Number.parseInt(
+          process.env.VITE_REQUEST_RETRY_DELAY,
+          10
+        ))
       process.env.VITE_REQUEST_CONTENT_TYPE &&
         (this.contentType = process.env
           .VITE_REQUEST_CONTENT_TYPE as ContentType)
@@ -52,9 +53,9 @@ export const useRequestState = defineStore({
     // 需要 loading 请求计数
     setLoadingCount(type: 'up' | 'down') {
       if (type === 'up') {
-        this.loadingCount++
+        this.loadingCount += 1
       } else {
-        this.loadingCount--
+        this.loadingCount -= 1
       }
     },
   },

@@ -1,6 +1,6 @@
-import { defineStore } from 'pinia'
-
 import type { GlobalState } from './global.d'
+
+import { defineStore } from 'pinia'
 
 export const useGlobalStore = defineStore({
   id: 'global',
@@ -32,8 +32,9 @@ export const useGlobalStore = defineStore({
     // 初始化
     initConfig() {
       process.env.VITE_REQUEST_TIMEOUT &&
-        (this.config.request.timeout = parseInt(
-          process.env.VITE_REQUEST_TIMEOUT
+        (this.config.request.timeout = Number.parseInt(
+          process.env.VITE_REQUEST_TIMEOUT,
+          10
         ))
     },
   },

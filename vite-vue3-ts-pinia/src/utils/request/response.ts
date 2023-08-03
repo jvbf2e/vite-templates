@@ -1,12 +1,14 @@
-import { useRequestState } from '@/store'
-import { getRequestKey } from '.'
-
 import type { AxiosInstance } from 'axios'
 import type { CustomAxiosRequestConfig, Result } from './index.d'
+
+import { getRequestKey } from '.'
+
+import { useRequestState } from '@/store'
 
 class ResponseManager {
   // 取消重复请求
   private cancelDuplicate(config: CustomAxiosRequestConfig) {
+    console.log(this)
     // 获取请求标识
     const key = getRequestKey(config)
     const { setPending } = useRequestState()
@@ -15,6 +17,7 @@ class ResponseManager {
 
   // Loading
   private loadingCount() {
+    console.log(this)
     const { getLoadingCount, setLoadingCount } = useRequestState()
     setLoadingCount('down')
     if (getLoadingCount === 0) {
@@ -24,21 +27,23 @@ class ResponseManager {
 
   // 状态码
   private handleCode(data: Result) {
+    console.log(this)
     // 根据状态码操作
     console.log(data)
   }
 
   // 失败时重新发起请求
   private retryRequest(error: any, service: AxiosInstance) {
+    console.log(this)
     // 获取请求配置
-    const config = error.config
+    const { config } = error
     // 判断是否需要请求失败重试
     if (config.retry) {
       // 获取该请求的重试次数
-      let retryCount = config.retryCount || 0
+      let retryCount = (config.retryCount as number) || 0
       // 如果重试次数小于设定的次数，则重新发起请求
       if (retryCount < config.retry) {
-        retryCount++
+        retryCount += 1
         config.retryCount = retryCount // 将重试次数保存到配置中，方便下次获取
         const retryDelay = error.config.retryDelay || 1000 // 获取重试延迟时间，默认为1000毫秒
         return new Promise((resolve) => {

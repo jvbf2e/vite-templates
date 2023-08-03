@@ -1,6 +1,6 @@
-import { createRouter, createWebHistory } from 'vue-router'
-
 import type { RouteRecordRaw } from 'vue-router'
+
+import { createRouter, createWebHistory } from 'vue-router'
 
 // * 导入所有router
 const metaRouters = import.meta.glob('./modules/*.ts', { eager: true })

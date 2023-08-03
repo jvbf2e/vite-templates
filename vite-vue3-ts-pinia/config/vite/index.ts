@@ -1,5 +1,3 @@
-import { resolve } from 'node:path'
-
 import type { ConfigEnv, UserConfig } from 'vite'
 
 import { createViteBuild } from './build'
@@ -10,9 +8,8 @@ import { createViteResolve } from './resolve'
 import { createViteServer } from './server'
 
 // https://vitejs.dev/config/
-export default ({ mode }: ConfigEnv): UserConfig => {
+export default function createVite({ mode }: ConfigEnv): UserConfig {
   return {
-    root: resolve(__dirname, '../../'),
     build: createViteBuild(),
     css: createViteCss(),
     esbuild: createViteEsbuild(),

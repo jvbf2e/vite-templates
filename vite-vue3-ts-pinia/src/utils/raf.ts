@@ -10,19 +10,21 @@ type TimerMap = {
 }
 
 class RAF {
-  private _timerIdMap: TimerMap
+  private timerIdMap: TimerMap
+
   constructor() {
-    this._timerIdMap = {
+    this.timerIdMap = {
       timeout: {},
       interval: {},
     }
   }
-  run(type = 'interval' as ARFType, cb: () => void, interval = 16.7) {
-    const now = Date.now
+
+  run(cb: () => void, interval = 16.7, type = 'interval' as ARFType) {
+    const { now } = Date
     let stime = now()
     let etime = stime
-    //创建Symbol类型作为key值，保证返回值的唯一性，用于清除定时器使用
-    const timerSymbol = Symbol()
+    // 创建Symbol类型作为key值，保证返回值的唯一性，用于清除定时器使用
+    const timerSymbol = Symbol(undefined)
     const loop = () => {
       this.setIdMap(timerSymbol, type, loop)
       etime = now()
@@ -39,23 +41,28 @@ class RAF {
     // 返回 Symbol 保证每次调用 setTimeout/setInterval 返回值的唯一性
     return timerSymbol
   }
+
   setIdMap(timerSymbol: symbol, type: ARFType, loop: FrameRequestCallback) {
     const id = requestAnimationFrame(loop)
-    this._timerIdMap[type][timerSymbol] = id
+    this.timerIdMap[type][timerSymbol] = id
   }
+
   // 实现 setTimeout 功能
   setTimeout(cb: () => void, interval?: number) {
-    return this.run('timeout', cb, interval)
+    return this.run(cb, interval, 'timeout')
   }
+
   clearTimeout(timer: symbol) {
-    cancelAnimationFrame(this._timerIdMap.timeout[timer])
+    cancelAnimationFrame(this.timerIdMap.timeout[timer])
   }
+
   // 实现setInterval功能
   setInterval(cb: () => void, interval?: number) {
-    return this.run('interval', cb, interval)
+    return this.run(cb, interval, 'interval')
   }
+
   clearInterval(timer: symbol) {
-    cancelAnimationFrame(this._timerIdMap.interval[timer])
+    cancelAnimationFrame(this.timerIdMap.interval[timer])
   }
 }
 

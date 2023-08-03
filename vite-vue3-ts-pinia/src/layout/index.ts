@@ -1,10 +1,9 @@
-import DefaultLayout from './default.vue'
-
 import type { App } from 'vue'
+import DefaultLayout from './default.vue'
 
 const components = {
   install(app: App) {
-    app.component('default-layout', DefaultLayout)
+    app.component('DefaultLayout', DefaultLayout)
   },
 }
 

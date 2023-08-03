@@ -1,14 +1,24 @@
+import type { PluginOption } from 'vite'
+
+import { loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-import { loadEnv, PluginOption } from 'vite'
-
+import { configVueComponentsPlugin } from './components'
 import { configCompressionPlugin } from './compression'
 import { createHtmlPlugin } from './html'
 import { configImageminPlugin } from './imagemin'
 import { configImagesPlugin } from './images'
+import { configAutoImportPlugin } from './import'
 import { configDefineOptionsPlugin } from './options'
-import { configAutoImportPlugin, configVueComponentsPlugin } from './unplugin'
 import { configVisualizerPlugin } from './visualizer'
+
+function getLoadEnv(mode: string, name: string, isBoolean?: boolean) {
+  const NAME = `VITE_CONFIG_PLUGIN_${name}`
+  if (isBoolean) {
+    return loadEnv(mode, process.cwd())[NAME] === 'true'
+  }
+  return loadEnv(mode, process.cwd())[NAME]
+}
 
 /**
  * 创建插件
@@ -41,12 +51,4 @@ export function createVitePlugins(mode: string) {
   getLoadEnv(mode, 'VISUALIZER', true) && plugins.push(configVisualizerPlugin())
 
   return plugins
-}
-
-function getLoadEnv(mode: string, name: string, isBoolean?: boolean) {
-  const NAME = `VITE_CONFIG_PLUGIN_${name}`
-  if (isBoolean) {
-    return loadEnv(mode, process.cwd())[NAME] === 'true'
-  }
-  return loadEnv(mode, process.cwd())[NAME]
 }
