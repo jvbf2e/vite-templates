@@ -3,7 +3,7 @@ export function createViteCss() {
     requireModuleExtension: true,
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "@/plugin/styles/layout.scss" as *;`,
+        additionalData: `@use "@/styles/layout.scss" as *;`,
       },
     },
   }
